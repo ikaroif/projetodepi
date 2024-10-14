@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: rgba(0, 43, 74, 1); /* Cor do cabeçalho */
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Espaçamento entre a logo e a navegação */
+        }
+
+        .logo img {
+            max-height: 50px; /* Ajuste conforme necessário */
+        }
+
+        .nav-center {
+            flex: 1; /* Ocupa o espaço disponível entre a logo e a barra de pesquisa */
+            display: flex;
+            justify-content: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Espaçamento entre os links */
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s, background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #555;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            padding: 10px 0;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-toggle {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s, background-color 0.3s;
+        }
+
+        .dropdown-toggle:hover {
+            background-color: #555;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="search"] {
+            padding: 8px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        input[type="submit"] {
+            padding: 8px 16px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #555;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #777;
+        }
+
+        .cart-icon {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .cart-icon img {
+            max-height: 30px;
+            /* Ajuste a altura do ícone conforme necessário */
+        }
+
+        .cart-badge {
+            background-color: #e74c3c;
+            color: #fff;
+            border-radius: 50%;
+            padding: 2px 6px; /* Reduzido para diminuir o tamanho do círculo */
+            font-size: 12px;  /* Reduzido para diminuir o texto e ajustar o círculo */
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(45deg, #3498db, #e74c3c);
+            border-bottom: 5px solid #fff;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .products-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 300px;
+            width: 100%;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-info h2 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .product-info .category {
+            font-size: 14px;
+            color: #3498db;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .product-info p {
+            margin: 10px 0;
+            color: #666;
+        }
+
+        .product-info .price {
+            font-size: 1.25em;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .buy-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .buy-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <a href="/"><img src="{% static 'images/logo.jpeg' %}" alt="Logo"></a>
+            </div>
+
+        </div>
+        <div class="nav-center">
+            <nav>
+                <a href="/">Home</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Categoria</a>
+                    <div class="dropdown-content">
+                        {% for categoria in categorias %}
+                        <a href="/?categoria={{categoria.nome}}">{{categoria.nome}}</a>
+
+                        {% endfor %}
+                    </div>
+                </div>
+                <a href="{% url 'sobre' %}">Sobre</a>
+            </nav>
+        </div>
+        <div class="search-form">
+            <form action="{% url 'pesquisa' %}" method="get">
+                <input type="search" name="q" placeholder="Pesquisar produtos">
+                <input type="submit" value="Pesquisar">
+            </form>
+            <a class="cart-icon" href="{% url 'carrinho' %}">
+                <img src="{% static 'images/cart-icon.png' %}" alt="Carrinho">
+                <span class="cart-badge">3</span>
+            </a>
+        </div>
+    </header>
+    <h1>Produtos</h1>
+    <div class="products-container">
+        {% for produto in produtos %}
+            <div class="product-card">
+                <img class="product-image" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                <div class="product-info">
+                    <p class="category">{{ produto.categoria }}</p>
+                    <h2>{{ produto.nome }}</h2>
+                    <p>{{ produto.descricao }}</p>
+                    <p class="price">R$ {{ produto.preco }}</p>
+                    <a href="{% url 'adicionar_ao_carrinho' produto.id %}" class="buy-button">Comprar</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

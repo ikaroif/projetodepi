@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categoria</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; }
+        header { background-color: #333; color: #fff; padding: 10px 0; text-align: center; }
+        nav a { color: #fff; text-decoration: none; padding: 10px 20px; }
+        nav a:hover { background-color: #555; border-radius: 5px; }
+        form { display: flex; justify-content: center; }
+        input[type="search"] { padding: 8px; font-size: 16px; border: none; border-radius: 4px; }
+        input[type="submit"] { padding: 8px 16px; font-size: 16px; border: none; border-radius: 4px; background-color: #555; color: #fff; }
+        input[type="submit"]:hover { background-color: #777; }
+        h1 { color: #333; text-align: center; padding: 20px; background-color: #efefef; border-bottom: 2px solid #ccc; }
+        p { margin: 10px 0; padding: 0 20px; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="{% url 'categoria' %}">Categoria</a>
+            <a href="{% url 'sobre' %}">Sobre</a>
+            <form action="{% url 'pesquisa' %}" method="get">
+                <input type="search" name="q" placeholder="Pesquisar produtos">
+                <input type="submit" value="Pesquisar">
+            </form>
+        </nav>
+    </header>
+    <h1>Página de Categoria</h1>
+    <p>Conteúdo da página de Categoria.</p>
+</body>
+</html>

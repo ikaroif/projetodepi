@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categoria Remédios</title>
+    {% load static %}
+    <style>
+        /* Adicione aqui o estilo para a página da categoria Remédios */
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Inclua aqui o cabeçalho -->
+    </header>
+    <h1>Categoria: Remédios</h1>
+    <div class="products-container">
+        {% for produto in produtos %}
+            <div class="product-card">
+                <img class="product-image" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                <div class="product-info">
+                    <h2>{{ produto.nome }}</h2>
+                    <p>{{ produto.descricao }}</p>
+                    <p class="price">R$ {{ produto.preco }}</p>
+                    <a href="{% url 'adicionar_ao_carrinho' produto.id %}" class="buy-button">Comprar</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

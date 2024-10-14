@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .cart-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .item-price {
+            color: #4CAF50;
+            font-size: 16px;
+        }
+
+        .item-quantity {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .remove-item {
+            color: #f44336;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .total {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .checkout-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .checkout-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Minha Loja</h2>
+    </header>
+    <h1>Carrinho de Compras</h1>
+    <div class="cart-container">
+        <div class="cart-item">
+            <div class="item-details">
+                <span class="item-name">Produto 1</span>
+                <span class="item-price">R$ 49,99</span>
+                <span class="item-quantity">Quantidade: 1</span>
+            </div>
+            <span class="remove-item">Remover</span>
+        </div>
+        <div class="cart-item">
+            <div class="item-details">
+                <span class="item-name">Produto 2</span>
+                <span class="item-price">R$ 89,99</span>
+                <span class="item-quantity">Quantidade: 2</span>
+            </div>
+            <span class="remove-item">Remover</span>
+        </div>
+        <div class="total">Total: R$ 229,97</div>
+        <a href="#" class="checkout-button">Finalizar Compra</a>
+    </div>
+</body>
+</html>

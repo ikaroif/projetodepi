@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa</title>
+    <style>
+        /* Estilos básicos semelhantes aos anteriores */
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="{% url 'categoria' %}">Categoria</a>
+            <a href="{% url 'sobre' %}">Sobre</a>
+            <form action="{% url 'pesquisa' %}" method="get">
+                <input type="search" name="q" placeholder="Pesquisar produtos" value="{{ request.GET.q }}">
+                <input type="submit" value="Pesquisar">
+            </form>
+        </nav>
+    </header>
+    <h1>Resultados da Pesquisa</h1>
+    <div class="products-container">
+        {% if produtos %}
+            {% for produto in produtos %}
+                <div class="product-card">
+                    <img class="product-image" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                    <div class="product-info">
+                        <h2>{{ produto.nome }}</h2>
+                        <p>{{ produto.descricao }}</p>
+                        <p class="price">R$ {{ produto.preco }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Nenhum produto encontrado.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
