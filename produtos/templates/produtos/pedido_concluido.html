@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido Concluído</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+        h1 {
+            color: #444;
+        }
+        .details {
+            margin-top: 20px;
+        }
+        .details p {
+            margin: 10px 0;
+        }
+        .details strong {
+            color: #555;
+        }
+        
+        /* Animação de sucesso */
+        .checkmark {
+            font-size: 100px;
+            color: #4CAF50;
+            animation: checkmarkAnimation 1.5s ease-in-out forwards;
+        }
+
+        @keyframes checkmarkAnimation {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Animação de transição suave para os detalhes */
+        .details p {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 1s ease-out forwards;
+        }
+
+        .details p:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+
+        .details p:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .details p:nth-child(3) {
+            animation-delay: 1.5s;
+        }
+
+        .details p:nth-child(4) {
+            animation-delay: 2s;
+        }
+
+        .details p:nth-child(5) {
+            animation-delay: 2.5s;
+        }
+
+        .details p:nth-child(6) {
+            animation-delay: 3s;
+        }
+
+        .details p:nth-child(7) {
+            animation-delay: 3.5s;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="checkmark">&#10003;</div>
+        <h1>Pedido Concluído!</h1>
+        <div class="details">
+            <p><strong>Nome do Cliente:</strong> {{ pedido.cliente.username }}</p>
+            <p><strong>Data do Pedido:</strong> {{ pedido.data|date:"d/m/Y H:i" }}</p>
+            <p><strong>Total:</strong> R$ {{ pedido.carrinho.total|floatformat:2 }}</p>
+            <p><strong>Método de Pagamento:</strong> {{ pedido.metodo_pagamento }}</p>
+            <p><strong>Endereço de Entrega:</strong> {{ pedido.endereco_entrega }}</p>
+            <p><strong>Nome do Destinatário:</strong> {{ pedido.nome_destinatario }}</p>
+            <p><strong>Chave do Pacote:</strong> {{ pedido.chave_pacote }}</p>
+        </div>
+    </div>
+
+</body>
+</html>

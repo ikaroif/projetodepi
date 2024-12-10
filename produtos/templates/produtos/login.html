@@ -1,0 +1,136 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background: white;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 2rem;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 14px;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .login-container input:focus {
+            border-color: #9b59b6;
+            outline: none;
+            box-shadow: 0 0 8px rgba(155, 89, 182, 0.5);
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 14px;
+            background: #9b59b6;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .login-container button:hover {
+            background: #8e44ad;
+            transform: scale(1.03);
+        }
+
+        .social-login-buttons {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .social-login-buttons a img {
+            width: 30px;
+            transition: transform 0.2s;
+        }
+
+        .social-login-buttons a img:hover {
+            transform: scale(1.1);
+        }
+
+        .error-message {
+            color: red;
+            display: none;
+            margin-top: 10px;
+        }
+
+        /* Melhorando a acessibilidade */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container" role="main">
+        <h2>Login</h2>
+        <form id="login-form" action="/login/" method="POST">
+            {% csrf_token %}
+            <label for="username" class="sr-only">Usuário</label>
+            <input type="text" id="username" name="username" placeholder="Usuário" required>
+            
+            <label for="password" class="sr-only">Senha</label>
+            <input type="password" id="password" name="password" placeholder="Senha" required>
+            
+            <button type="submit">Entrar</button>
+        </form>
+
+        <div class="social-login-buttons">
+            <a href="#"><img src="{% static 'images/facebook-icon.png' %}" alt="Facebook"></a>
+            <a href="#"><img src="{% static 'images/instagram-icon.png' %}" alt="Instagram"></a>
+            <a href="#"><img src="{% static 'images/linkedin-icon.png' %}" alt="LinkedIn"></a>
+            <a href="#"><img src="{% static 'images/twitter-icon.png' %}" alt="Twitter"></a>
+        </div>
+
+        <p>Não tem uma conta? <a href="/cadastro_cliente/">Cadastre-se aqui</a></p>
+
+        <!-- Mensagem de erro (se necessário) -->
+        <div class="error-message" id="error-message">Usuário ou senha inválidos.</div>
+    </div>
+
+</body>
+</html>

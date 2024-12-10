@@ -1,0 +1,168 @@
+{% extends 'produtos/base.html' %}
+
+{% block title %}Sobre{% endblock %}
+
+{% block categorias %}
+    {% for categoria in categorias %}
+        <a href="/?categoria={{ categoria.nome }}">{{ categoria.nome }}</a>
+    {% endfor %}
+{% endblock %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+        }
+        h2 {
+            color: #008cba;
+            font-size: 1.8rem;
+        }
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .team-member {
+            display: flex;
+            align-items: center;
+            margin-top: 40px;
+        }
+        .team-member img {
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            margin-right: 40px;
+        }
+        .team-member div {
+            max-width: 600px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 20px;
+        }
+        .mission-values ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .mission-values li {
+            background-color: #f1f1f1;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .impact-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .impact-section li {
+            margin: 10px 0;
+            font-size: 1.1rem;
+            color: #333;
+        }
+    </style>
+
+<h1>Sobre a Pharmanet</h1>
+
+
+    <div class="container">
+        <h2>Quem Somos</h2>
+        <p>Pharmanet é uma farmácia online criada pelos jovens idealizadores Davis e Íkaro, com o intuito de transformar a maneira como você cuida da sua saúde. Com 18 e 19 anos, respectivamente, acreditamos que a tecnologia pode melhorar o acesso a medicamentos e produtos de saúde, oferecendo aos nossos clientes uma experiência de compra simples, rápida e segura. Somos uma equipe inovadora e apaixonada por facilitar a vida das pessoas, oferecendo produtos de qualidade no conforto de sua casa.</p>
+
+        <h2>Nosso Compromisso com a Saúde</h2>
+        <p>Na Pharmanet, nos preocupamos com a sua saúde. Trabalhamos com farmácias certificadas e oferecemos produtos de qualidade, aprovados pelas autoridades regulatórias de saúde, como ANVISA. Nosso compromisso é garantir que você tenha acesso aos melhores medicamentos e produtos de saúde, com segurança e agilidade. Cada compra é acompanhada com responsabilidade, e sempre buscamos oferecer a melhor experiência para nossos clientes.</p>
+
+        <h2>Missão, Visão e Valores</h2>
+        <div class="mission-values">
+            <h3>Missão</h3>
+            <p>Nosso objetivo é oferecer a melhor experiência de compra de medicamentos e produtos de saúde online, proporcionando aos nossos clientes acesso fácil, rápido e seguro a produtos essenciais para o cuidado da saúde.</p>
+
+            <h3>Visão</h3>
+            <p>Queremos ser a maior farmácia online do país, reconhecida pela confiança que transmitimos aos nossos clientes e pela excelência nos serviços prestados. Nosso foco é democratizar o acesso a medicamentos e cuidados de saúde, utilizando tecnologia para melhorar a experiência do usuário e a entrega de produtos.</p>
+
+            <h3>Valores</h3>
+            <ul>
+                <li><strong>Inovação:</strong> Buscamos sempre soluções criativas para melhorar nossos serviços e a experiência do usuário.</li>
+                <li><strong>Confiança:</strong> Prezamos pela transparência e pela qualidade de nossos produtos e serviços.</li>
+                <li><strong>Responsabilidade:</strong> Atuamos com ética e comprometimento, sempre visando o bem-estar e a saúde dos nossos clientes.</li>
+                <li><strong>Acessibilidade:</strong> Acreditamos que todos devem ter acesso a produtos de saúde de qualidade, independentemente de onde estejam.</li>
+            </ul>
+        </div>
+
+        <h2>O Que Oferecemos</h2>
+        <p>Em nossa plataforma, você encontra uma ampla gama de produtos, como medicamentos, suplementos, cosméticos, produtos de higiene e muito mais. Todos com a conveniência de serem comprados de casa, com entrega rápida e um sistema de pagamento seguro. Nossa loja online foi desenvolvida com o objetivo de tornar a sua experiência de compra simples e eficiente, com uma interface amigável e moderna.</p>
+
+        <h2>Como Funciona?</h2>
+        <p>A Pharmanet é fácil de usar. Basta acessar nossa plataforma, procurar pelo produto desejado, adicionar ao carrinho, escolher a forma de pagamento e pronto! Em poucos dias, você recebe sua compra no conforto de sua casa. Trabalhamos com um sistema de entrega rápido e seguro, com rastreamento de pedidos para que você saiba exatamente quando o produto chegará.</p>
+
+        <h2>Os Idealizadores</h2>
+        <div class="team-member">
+            <img src="{% static 'images/davis.jpg' %}" alt="Davis">
+            <div>
+                <h3>Davis (18 anos)</h3>
+                <p>Sou um dos idealizadores da Pharmanet. Minha paixão por tecnologia e saúde me motivou a criar uma plataforma que facilite o acesso das pessoas a produtos de saúde de qualidade. Com um olhar atento à inovação e ao bem-estar, meu objetivo é transformar o mercado digital de saúde no Brasil.</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="{% static 'images/ikaro.png' %}" alt="Íkaro">
+            <div>
+                <h3>Íkaro (19 anos)</h3>
+                <p>Sou co-fundador da Pharmanet. Minha visão é levar soluções digitais inovadoras para a área da saúde e, assim, oferecer aos nossos clientes mais comodidade e segurança no processo de compra de medicamentos. Acredito no poder da tecnologia para melhorar a vida das pessoas, especialmente no campo da saúde.</p>
+            </div>
+        </div>
+
+        <h2>Por Que Escolher a Pharmanet?</h2>
+        <ul>
+            <li>Preços competitivos em uma ampla gama de produtos de saúde.</li>
+            <li>Entrega rápida e segura diretamente no seu endereço.</li>
+            <li>Atendimento personalizado com farmacêuticos qualificados.</li>
+            <li>Plataforma fácil de navegar e compra segura.</li>
+            <li>Facilidade no acesso a medicamentos e produtos de saúde a qualquer hora e em qualquer lugar.</li>
+        </ul>
+
+        <h2>Impacto Social e Sustentabilidade</h2>
+        <p>A Pharmanet não é apenas uma farmácia online, mas também está comprometida com a responsabilidade social e ambiental. Trabalhamos para minimizar o impacto ambiental de nossas operações, utilizando embalagens recicláveis e otimizando nossas rotas de entrega para reduzir a pegada de carbono. Além disso, buscamos apoiar iniciativas de saúde pública e acesso à saúde de qualidade para comunidades carentes.</p>
+
+        <div class="impact-section">
+            <h3>Nossas Ações Sociais</h3>
+            <ul>
+                <li>Parcerias com ONGs para levar medicamentos essenciais a comunidades carentes.</li>
+                <li>Promoções de saúde preventiva, com campanhas educacionais sobre cuidados de saúde e bem-estar.</li>
+                <li>Doações regulares de produtos de saúde para hospitais e instituições filantrópicas.</li>
+            </ul>
+        </div>
+
+        <h2>Nosso Compromisso com a Tecnologia</h2>
+        <p>Na Pharmanet, utilizamos as mais modernas tecnologias para garantir uma experiência de compra ágil e segura. Nossa plataforma online foi desenvolvida com foco em usabilidade e segurança, com sistemas de pagamento criptografados para proteger as informações dos nossos clientes. Além disso, trabalhamos com inteligência artificial para recomendar produtos com base no histórico de compras e preferências dos nossos clientes, garantindo uma experiência personalizada.</p>
+
+    </div>
+
+
+
+</body>
+</html>
+
+
+{% endblock %}

@@ -1,0 +1,287 @@
+{% extends 'produtos/base.html' %}
+{% load static %}
+{% block title %}Carrinho de Compras{% endblock %}
+
+{% block categorias %}
+    <div class="categorias-container">
+        {% for categoria in categorias %}
+            <a href="/?categoria={{ categoria.nome }}" class="categoria-link">{{ categoria.nome }}</a>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="cart-container">
+        {% if carrinho.itens.count > 0 %}
+            <h1 class="welcome-message">Seu Carrinho, {{ user.username }}</h1>
+            <div class="cart-items">
+                {% for item in carrinho.itens.all %}
+                    <div class="cart-item">
+                        <div class="item-details">
+                            <!-- Imagem do produto com tamanho reduzido -->
+                            <img src="{{ item.imagem.url }}" alt="{{ item.nome }}" class="item-image">
+                            <span class="item-name">{{ item.nome }}</span>
+                            <span class="item-price">R${{ item.preco }}</span>
+                            <span class="item-quantity">Quantidade:</span>
+                            <form action="{% url 'atualizar_quantidade_carrinho' item.id %}" method="post" class="quantity-form">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantidade }}" min="1" class="quantity-input">
+                                <button type="submit" class="update-button">Atualizar</button>
+                            </form>
+                        </div>
+                        <form action="{% url 'remover_do_carrinho' item.id %}" method="post" class="remove-form">
+                            {% csrf_token %}
+                            <button type="submit" class="remove-button">Remover</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="cart-total">
+                Total: R${{ carrinho.total }}
+            </div>
+            <a href="{% url 'finalizar_compra' %}" class="checkout-button">Finalizar Compra</a>
+        {% else %}
+            <p class="empty-cart-message">Seu carrinho está vazio.</p>
+        {% endif %}
+    </div>
+
+
+<style>
+/* Estilos Gerais */
+.titulo-carrinho {
+    text-align: center;
+    font-size: 3rem;
+    color: #333;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1s ease-in;
+}
+
+.cart-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: slideIn 1s ease-out;
+}
+
+/* Mensagem de boas-vindas */
+.welcome-message {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* Itens do Carrinho */
+.cart-items {
+    margin-top: 25px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.cart-item:hover {
+    transform: translateY(-5px);
+}
+
+/* Detalhes do Item */
+.item-details {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.item-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+    transition: transform 0.3s ease;
+}
+
+.item-image:hover {
+    transform: scale(1.1);
+}
+
+.item-name {
+    font-weight: 600;
+    font-size: 1.2em;
+    color: #333;
+    margin-right: 25px;
+    transition: color 0.3s ease;
+}
+
+.item-name:hover {
+    color: #14c0c7;
+}
+
+.item-price {
+    color: #555;
+    margin-right: 20px;
+}
+
+.item-quantity {
+    color: #777;
+    margin-right: 10px;
+}
+
+/* Formulário para Atualizar Quantidade */
+.quantity-form {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-input {
+    width: 70px;
+    padding: 10px;
+    margin-left: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+.quantity-input:focus {
+    border-color: #14c0c7;
+}
+
+.update-button {
+    background-color: #14c0c7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-left: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.update-button:hover {
+    background-color: #12b3b1;
+}
+
+/* Remover Item */
+.remove-form {
+    display: inline;
+}
+
+.remove-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+    background-color: #e03e3e;
+}
+
+/* Total do Carrinho */
+.cart-total {
+    text-align: right;
+    font-size: 1.6em;
+    font-weight: bold;
+    margin-top: 25px;
+    color: #333;
+}
+
+/* Botão de Finalizar Compra */
+.checkout-button {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px 25px;
+    background-color: #14c0c7;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.3em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.checkout-button:hover {
+    background-color: #12b3b1;
+    transform: translateY(-3px);
+}
+
+/* Mensagem de Carrinho Vazio */
+.empty-cart-message {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #888;
+    margin-top: 30px;
+}
+
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+    .cart-container {
+        padding: 20px;
+    }
+
+    .item-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .item-image {
+        margin-bottom: 15px;
+    }
+
+    .item-name, .item-price, .item-quantity {
+        margin-bottom: 10px;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .quantity-form {
+        margin-top: 10px;
+    }
+}
+
+/* Animações */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerência de Produtos</title>
+    <style>
+        /* Estilo global */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #2d3748;
+        }
+
+        /* Estilizando o formulário */
+        .form-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .form-group input[type="text"], 
+        .form-group input[type="number"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #2d3748;
+            background-color: #f7fafc;
+            margin-top: 5px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #3182ce;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #2b6cb0;
+        }
+
+        /* Layout dos produtos */
+        .products-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            max-width: 280px;
+            width: 100%;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .price {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: #e53e3e;
+            color: #ffffff;
+            padding: 6px 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 6px;
+        }
+
+        .product-info h2 {
+            margin: 10px 0 5px;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .product-info p {
+            font-size: 0.95em;
+            color: #718096;
+            margin: 8px 0;
+        }
+
+        .buy-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .edit-button, .delete-button {
+            padding: 8px 16px;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .edit-button {
+            background-color: #4a5568;
+        }
+
+        .edit-button:hover {
+            background-color: #2d3748;
+        }
+
+        .delete-button {
+            background-color: #e53e3e;
+        }
+
+        .delete-button:hover {
+            background-color: #c53030;
+        }
+
+        .quantity {
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .category {
+            font-size: 14px;
+            color: #3182ce;
+            margin-top: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <form enctype="multipart/form-data" action="" method="post" class="product-form">
+            {% csrf_token %}
+            <h2>Cadastro de Produto</h2>
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                {{ form.nome }}
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descrição:</label>
+                {{ form.descricao }}
+            </div>
+            <div class="form-group">
+                <label for="categoria">Categoria:</label>
+                {{ form.categoria }}
+            </div>
+            <div class="form-group">
+                <label for="quantidade">Quantidade:</label>
+                {{ form.quantidade }}
+            </div>
+            <div class="form-group">
+                <label for="imagem">Imagem:</label>
+                {{ form.imagem }}
+            </div>
+            <div class="form-group">
+                <label for="carrinho">Carrinho:</label>
+                {{ form.carrinho }}
+            </div>
+            <div class="form-group">
+                <label for="preco">Preço:</label>
+                {{ form.preco }}
+            </div>
+            <button type="submit" class="submit-button">Salvar Produto</button>
+        </form>
+    </div>
+
+    <div class="products-container">
+        {% for produto in produtos %}
+            <div class="product-card">
+                <div class="image-container">
+                    <img class="product-image" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                    <p class="price">R$ {{ produto.preco }}</p>
+                </div>
+                <div class="product-info">
+                    <h2>{{ produto.nome }}</h2>
+                    <p>{{ produto.descricao }}</p>
+                    <div class="buy-container">
+                        <a class="edit-button" href="{% url 'editar_produto' produto.id %}">Editar</a>
+                        <a class="delete-button" href="{% url 'remover_produto' produto.id %}">Excluir</a>
+                        <span class="quantity">{{ produto.quantidade }} disponíveis</span>
+                    </div>
+                    <p class="category">Categoria: {{ produto.categoria }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

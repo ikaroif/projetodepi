@@ -1,0 +1,179 @@
+{% extends 'produtos/base.html' %}
+{% load static %}
+{% block title %}Produtos{% endblock %}
+
+{% block categorias %}
+    <div class="categorias-container">
+        {% for categoria in categorias %}
+            <a href="/?categoria={{ categoria.nome }}" class="categoria-link">{{ categoria.nome }}</a>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block content %}
+<h1>Bem-vindo à Pharmanet</h1>
+    <div class="products-container">
+        {% for produto in produtos %}
+            <div class="product-card">
+                <div class="image-container">
+                    <a href="{% url 'adicionar_carrinho' produto_id=produto.id %}">
+                        <img src="{% static 'images/cart-icon.png' %}" class="cart-icon-produtos" alt="Carrinho">
+                    </a>
+                    <img class="product-image" src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                    <p class="price">R$ {{ produto.preco }}</p>
+                </div>
+                <div class="product-info">
+                    <h2>{{ produto.nome }}</h2>
+                    <p>{{ produto.descricao }}</p>
+                    <div class="buy-container">
+                        <form method="POST" action="{% url 'Comprar' produto_id=produto.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="buy-button">Comprar</button>
+                        </form>
+                        <span class="quantity">{{ produto.quantidade }} disponíveis</span>
+                    </div>
+                    <p class="category">Categoria: {{ produto.categoria }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+<style>
+    
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f8f8;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+
+    .categorias-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .categoria-link {
+        text-decoration: none;
+        color: #3498db;
+        font-size: 1.2em;
+        margin: 0 10px;
+        padding: 5px 10px;
+        border: 1px solid #3498db;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .categoria-link:hover {
+        background-color: #3498db;
+        color: #fff;
+    }
+
+    .products-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .product-card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        max-width: 300px;
+        width: 100%;
+        transition: transform 0.3s, box-shadow 0.3s;
+        text-align: center;
+    }
+
+    .product-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .image-container {
+        position: relative;
+    }
+
+    .cart-icon-produtos {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 1px solid #eee;
+    }
+
+    .price {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: red;
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 1.2em;
+        border-radius: 5px;
+    }
+
+    .buy-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .buy-button {
+        display: none; /* Esconde o botão por padrão */
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #3498db;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .product-card:hover .buy-button {
+        display: block; /* Mostra o botão quando o mouse passa sobre o card */
+    }
+
+    .product-info {
+        padding: 15px;
+    }
+
+    .product-info h2 {
+        margin: 0;
+        font-size: 1.5em;
+        color: #333;
+    }
+
+    .product-info p {
+        margin: 10px 0;
+        color: #666;
+    }
+
+    .quantity {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .category {
+        font-size: 14px;
+        color: #3498db;
+        margin-top: 10px;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+</style>
+
+{% endblock %}

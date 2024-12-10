@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cliente</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            font-family: Arial, sans-serif;
+        }
+
+        .cadastro-container {
+            width: 400px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .cadastro-container h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: #333;
+        }
+
+        .cadastro-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .cadastro-container input:focus {
+            border-color: #9b59b6;
+            outline: none;
+            box-shadow: 0 0 5px rgba(155, 89, 182, 0.5);
+        }
+
+        .cadastro-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #9b59b6;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .cadastro-container button:hover {
+            background-color: #8e44ad;
+            transform: scale(1.03);
+        }
+
+        .cadastro-container button:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(155, 89, 182, 0.5);
+        }
+
+        .login-link {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .login-link a {
+            color: #9b59b6;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="cadastro-container">
+        <h2>Cadastro de Cliente</h2>
+        <form action="/cadastro_cliente/" method="POST">
+            {% csrf_token %}
+            <input type="text" name="usuario" placeholder="Em nome de usuário" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="telefone" placeholder="Telefone" required>
+            <input type="text" name="endereco" placeholder="Endereço" required>
+            <input type="password" name="senha" placeholder="Senha" required>
+            <button type="submit">Cadastrar</button>
+        </form>
+        <p class="login-link">Já tem uma conta? <a href="/login/">Faça login aqui</a></p>
+    </div>
+
+</body>
+</html>
