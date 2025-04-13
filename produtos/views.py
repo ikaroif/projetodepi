@@ -14,7 +14,7 @@ def lista_produtos(request):
         produtos = Produto.objects.filter(categoria=Categoria.objects.get(nome__iexact=request.GET['categoria']))
     else:
         produtos = Produto.objects.all()
-    return render(request, 'produtos/lista_produtos.html', {'produtos': produtos, 'categorias': categorias})
+    return render(request, 'produtos/index.html', {'produtos': produtos, 'categorias': categorias})
 
 def criar_produto(request):
     produtos=Produto.objects.all()
@@ -65,7 +65,7 @@ def pesquisa(request):
         if categoria_id:
             return redirect(f'/produtos/lista_produtos?categoria={categoria_id}')
     
-    return render(request, 'produtos/lista_produtos.html', {'produtos': produtos, 'categorias': categorias})
+    return render(request, 'produtos/index.html', {'produtos': produtos, 'categorias': categorias})
 
 def carrinho(request):
     cliente = get_object_or_404(Cliente, id=request.user.id)
